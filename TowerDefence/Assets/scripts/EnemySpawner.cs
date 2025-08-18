@@ -19,7 +19,13 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemyWithDelay());
+    }
+
+    IEnumerator SpawnEnemyWithDelay()
+    {
+        yield return new WaitForSeconds(8f);   // 第一波出怪前 10 秒缓冲
+        yield return SpawnEnemy();              // 原来的逻辑不变
     }
 
     IEnumerator SpawnEnemy()

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8783714239258155232}
   - component: {fileID: 2874165763670317041}
   - component: {fileID: 7437903473150851175}
+  - component: {fileID: 1955070403440628621}
   m_Layer: 0
   m_Name: weapon-ammo-bullet
   m_TagString: Untagged
@@ -28,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 1489869646853703668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.02127, y: 0.6, z: 22.728535}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: -25.02127, y: 0.6, z: 22.737}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -105,3 +106,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.16, y: 0.16, z: 0.3428564}
   m_Center: {x: 0, y: 0, z: -0.0044693947}
+--- !u!114 &1955070403440628621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489869646853703668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c9ec745107e7542b3e06b52fabc95f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 50
+  speed: 22

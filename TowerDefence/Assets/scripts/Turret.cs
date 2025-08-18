@@ -1,4 +1,4 @@
-using System.Collections;
+// Turret.cs
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +9,14 @@ public class Turret : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletPosition;
 
+    [Header("射速与伤害")]
     public float attackRate = 0.1f;
-    private float nextAttackTime;
+    public float damagePerShot = 50f;          // ← 新增：每发子弹伤害
 
+    private float nextAttackTime;
     private Transform head;
 
-    private void Start()
+    protected virtual void Start()
     {
         head = transform.Find("Head");
         if (head == null)
@@ -39,7 +41,7 @@ public class Turret : MonoBehaviour
             enemyList.Remove(other.gameObject);
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         if (enemyList == null || enemyList.Count == 0) return;
 
@@ -48,8 +50,10 @@ public class Turret : MonoBehaviour
             Transform target = GetTarget();
             if (target != null)
             {
-                GameObject go = GameObject.Instantiate(bulletPrefab, bulletPosition.position, Quaternion.identity);
-                go.GetComponent<Bullet>().SetTarget(target);
+                GameObject go = Instantiate(bulletPrefab, bulletPosition.position, Quaternion.identity);
+                Bullet bullet = go.GetComponent<Bullet>();
+                bullet.SetTarget(target);
+                bullet.SetDamage(damagePerShot);   // ← 把伤害传给子弹
                 nextAttackTime = Time.time + attackRate;
             }
         }
@@ -58,22 +62,15 @@ public class Turret : MonoBehaviour
     public Transform GetTarget()
     {
         List<int> indexList = new List<int>();
-
         for (int i = 0; i < enemyList.Count; i++)
         {
-            if (enemyList[i] == null )   
+            if (enemyList[i] == null)
                 indexList.Add(i);
         }
-
-        //这里通常会继续遍历 indexList 做清理，例如：
         for (int j = indexList.Count - 1; j >= 0; j--)
             enemyList.RemoveAt(indexList[j]);
 
-        if (enemyList != null && enemyList.Count != 0)
-        {
-           return enemyList[0].transform; 
-        }
-        return null; 
+        return (enemyList != null && enemyList.Count > 0) ? enemyList[0].transform : null;
     }
 
     private void DirectionControl()
@@ -83,6 +80,8 @@ public class Turret : MonoBehaviour
         Transform target = GetTarget();
         if (target == null) return;
 
-        head.LookAt(target.position);
+        Vector3 aimPos = target.position;
+        aimPos.y = head.position.y;
+        head.LookAt(aimPos);
     }
 }

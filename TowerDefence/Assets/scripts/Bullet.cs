@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Bullet : MonoBehaviour
 {
-    public int damage = 50;
+    private int damage = 50;       // ← 改为私有，由外部设定
     public float speed = 15f;
 
     private Transform target;
@@ -15,13 +12,11 @@ public class Bullet : MonoBehaviour
         if (target == null)
         {
             Dead();
-            return; 
+            return;
         }
-            
+
         transform.LookAt(target.position);
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
-
-
 
         if (Vector3.Distance(transform.position, target.position) < 1f)
         {
@@ -35,9 +30,14 @@ public class Bullet : MonoBehaviour
         target = _target;
     }
 
-    private void Dead()
+    // 新增：让炮塔把伤害值传进来
+    public void SetDamage(float dmg)
     {
-        Destroy(this.gameObject);
+        damage = Mathf.RoundToInt(dmg);
     }
 
+    private void Dead()
+    {
+        Destroy(gameObject);
+    }
 }

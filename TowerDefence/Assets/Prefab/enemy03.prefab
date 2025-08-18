@@ -667,9 +667,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe71ad2e422bcf49b497c00e11a3282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  hp: 100
+  speed: 21
+  hp: 200
   explosionPrefab: {fileID: 2229881571284068173}
+  baseSpeed: 0
+  bounty: 100
 --- !u!65 &705586817380892972
 BoxCollider:
   m_ObjectHideFlags: 0
